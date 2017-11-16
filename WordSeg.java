@@ -25,7 +25,7 @@ public class WordSeg {
 			for(int z=1; z <= i; z++) {
 				//Value of previous optimal segment (1 .. z-1) plus quality of segment (z .. i)
 				int recurrence = opt[z-1] + quality(str.substring((z-1),i));
-				//If the recurrence is greater than current opt[i]
+				//If the recurrence is greater (more optimal) than current opt[i]
 				if(recurrence > opt[i]) {
 					//Set opt[i] to the recurrence
 					opt[i] = recurrence;
@@ -67,9 +67,10 @@ public class WordSeg {
 	 */
 	public static ArrayList<String> traceback(int[] pointer, String str) {
 		ArrayList<String> words = new ArrayList<String>();
-		for(int i = str.length(); i > 0; i++) {
+		int i = str.length();
+		while(i > 0) {
 			words.add(0, str.substring(pointer[i], i));
-			i = pointer[i] - 1;
+			i = pointer[i];
 		}
 		return words;
 	}
